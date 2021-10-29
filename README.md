@@ -9,3 +9,5 @@ Here our goal is to highlight how taking a distributed Elasticsearch toolset and
 To understand how we can accomplish this task, we need to look at the configuration of the Elasticsearch solution on a given server platform. In this instance, we showcase how many servers may be required to accomplish a deployment of the search tools. By choosing to offload portions of the platform to the devices we can provide more value to the overall system Total Cost of Ownership (TCO). Focusing on the best use of the system resources for search versus other needed activities of the system. 
 
 ![image](https://user-images.githubusercontent.com/31414094/139505253-836667e0-bed5-4e96-bb52-e808b1a6e7c7.png)
+
+What does this new architecture look like, Well in our example we reconfigure the platform into only the needed number of servers for resiliency and provide CPU resources on the NGD Systems Computational Storage Drives (CSDs) by overlaying the Data and Master nodes and releasing the added CPUs and servers in the system to be used for other tasks.
