@@ -11,3 +11,43 @@ To understand how we can accomplish this task, we need to look at the configurat
 ![image](https://user-images.githubusercontent.com/31414094/139505253-836667e0-bed5-4e96-bb52-e808b1a6e7c7.png)
 
 What does this new architecture look like, Well in our example we reconfigure the platform into only the needed number of servers for resiliency and provide CPU resources on the NGD Systems Computational Storage Drives (CSDs) by overlaying the Data and Master nodes and releasing the added CPUs and servers in the system to be used for other tasks.
+
+# Install Elasticsearch with Debian Package on NGD CSDs
+
+```
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb.sha512
+shasum -a 512 -c elasticsearch-7.15.1-arm64.deb.sha512
+sudo dpkg -i elasticsearch-7.15.1-arm64.deb
+```
+
+
+
+
+# Running Elasticsearch with "systemd"
+To configure Elasticsearch to start automatically when the system boots up, run the following commands:
+
+```
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+```
+
+Elasticsearch can be started and stopped as follows:
+
+```
+sudo systemctl start elasticsearch.service
+sudo systemctl stop elasticsearch.service
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
