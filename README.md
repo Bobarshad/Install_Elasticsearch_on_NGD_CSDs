@@ -21,8 +21,15 @@ shasum -a 512 -c elasticsearch-7.15.1-arm64.deb.sha512
 sudo dpkg -i elasticsearch-7.15.1-arm64.deb
 ```
 
+# Because Elasticsearch uses Java, we need to ensure the Java Development Kit (JDK) is installed. 
+As NGD CSD operting sysytem is Linux aarch64 (64-bit ARM) systems:
 
+```
+ngd@node1:~$ cd /usr/lib/jvm
+ngd@node1:/usr/lib/jvm$ wget https://download.java.net/java/early_access/jdk18/21/GPL/openjdk-18-ea+21_macos-aarch64_bin.tar.gz
+ngd@node1:/usr/lib/jvm$ tar zxvf openjdk-18-ea+21_macos-aarch64_bin.tar.gz
 
+```
 
 # Running Elasticsearch with "systemd"
 To configure Elasticsearch to start automatically when the system boots up, run the following commands:
