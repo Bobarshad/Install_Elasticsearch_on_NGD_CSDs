@@ -49,15 +49,3 @@ ngd@node1:~$ sudo systemctl start elasticsearch.service
 ngd@node1:~$ sudo systemctl stop elasticsearch.service
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
