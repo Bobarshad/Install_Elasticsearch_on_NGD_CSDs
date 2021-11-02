@@ -12,7 +12,7 @@ To understand how we can accomplish this task, we need to look at the configurat
 
 What does this new architecture look like, Well in our example we reconfigure the platform into only the needed number of servers for resiliency and provide CPU resources on the NGD Systems Computational Storage Drives (CSDs) by overlaying the Data and Master nodes and releasing the added CPUs and servers in the system to be used for other tasks.
 
-# Install Elasticsearch with Debian Package on NGD CSDs
+# Installing Elasticsearch on NGD CSD
 
 ```
 ngd@node1:~$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb
@@ -22,8 +22,7 @@ ngd@node1:~$ sudo dpkg -i elasticsearch-7.15.1-arm64.deb
 ```
 
 # Because Elasticsearch uses Java, we need to ensure the Java Development Kit (JDK) is installed. 
-As NGD CSD operting sysytem is Linux aarch64 (64-bit ARM) systems:
-
+As NGD CSD operating system is a Linux aarch64 (64-bit ARM) systems:
 ```
 ngd@node1:~$ sudo bash
 root@node1:~$ cd /usr/lib/jvm
