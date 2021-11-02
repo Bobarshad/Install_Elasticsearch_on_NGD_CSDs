@@ -15,35 +15,39 @@ What does this new architecture look like, Well in our example we reconfigure th
 # Install Elasticsearch with Debian Package on NGD CSDs
 
 ```
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb.sha512
-shasum -a 512 -c elasticsearch-7.15.1-arm64.deb.sha512
-sudo dpkg -i elasticsearch-7.15.1-arm64.deb
+ngd@node1:~$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb
+ngd@node1:~$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-arm64.deb.sha512
+ngd@node1:~$ shasum -a 512 -c elasticsearch-7.15.1-arm64.deb.sha512
+ngd@node1:~$ sudo dpkg -i elasticsearch-7.15.1-arm64.deb
 ```
 
 # Because Elasticsearch uses Java, we need to ensure the Java Development Kit (JDK) is installed. 
 As NGD CSD operting sysytem is Linux aarch64 (64-bit ARM) systems:
 
 ```
-ngd@node1:~$ cd /usr/lib/jvm
-ngd@node1:/usr/lib/jvm$ wget https://download.java.net/java/early_access/jdk18/21/GPL/openjdk-18-ea+21_macos-aarch64_bin.tar.gz
-ngd@node1:/usr/lib/jvm$ tar zxvf openjdk-18-ea+21_macos-aarch64_bin.tar.gz
-
+ngd@node1:~$ sudo bash
+root@node1:~$ cd /usr/lib/jvm
+root@node1:/usr/lib/jvm$ wget https://download.java.net/java/early_access/jdk18/21/GPL/openjdk-18-ea+21_linux-aarch64_bin.tar.gz
+root@node1:/usr/lib/jvm$ tar zxvf openjdk-18-ea+21_linux-aarch64_bin.tar.gz
+root@node1:/usr/lib/jvm$ update-alternatives --install /usr/bin/jave java /usr/lib/jvm/jdk1-8/bin/java 1
+root@node1:/usr/lib/jvm$ exit
+ngd@node1:~$ sudo update-alternatives --config java
 ```
+In above menu, select number 1.
 
 # Running Elasticsearch with "systemd"
 To configure Elasticsearch to start automatically when the system boots up, run the following commands:
 
 ```
-sudo /bin/systemctl daemon-reload
-sudo /bin/systemctl enable elasticsearch.service
+ngd@node1:~$ sudo /bin/systemctl daemon-reload
+ngd@node1:~$ sudo /bin/systemctl enable elasticsearch.service
 ```
 
 Elasticsearch can be started and stopped as follows:
 
 ```
-sudo systemctl start elasticsearch.service
-sudo systemctl stop elasticsearch.service
+ngd@node1:~$ sudo systemctl start elasticsearch.service
+ngd@node1:~$ sudo systemctl stop elasticsearch.service
 ```
 
 
