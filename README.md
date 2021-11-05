@@ -33,7 +33,7 @@ root@node1:/usr/lib/jvm$ sudo update-alternatives --install /usr/bin/jave java /
 root@node1:/usr/lib/jvm$ exit
 ngd@node1:~$ sudo update-alternatives --config java
 ```
-In above menu, select number 18.
+In the above menu, select the biggest selection number, which refers to JDK-18.
 
 # Running Elasticsearch with "systemd"
 To configure Elasticsearch to start automatically when the system boots up, run the following commands:
