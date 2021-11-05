@@ -28,6 +28,7 @@ ngd@node1:~$ sudo bash
 root@node1:~$ cd /usr/lib/jvm
 root@node1:/usr/lib/jvm$ wget https://download.java.net/java/early_access/jdk18/21/GPL/openjdk-18-ea+21_linux-aarch64_bin.tar.gz
 root@node1:/usr/lib/jvm$ tar zxvf openjdk-18-ea+21_linux-aarch64_bin.tar.gz
+root@node1:/usr/lib/jvm$ ln -s /etc/alternatives/java /usr/bin/java
 root@node1:/usr/lib/jvm$ sudo update-alternatives --install /usr/bin/jave java /usr/lib/jvm/jdk-18/bin/java 18
 root@node1:/usr/lib/jvm$ exit
 ngd@node1:~$ sudo update-alternatives --config java
