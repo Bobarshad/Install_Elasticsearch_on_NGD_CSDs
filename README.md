@@ -12,6 +12,20 @@ To understand how we can accomplish this task, we need to look at the configurat
 
 What does this new architecture look like, Well in our example we reconfigure the platform into only the needed number of servers for resiliency and provide CPU resources on the NGD Systems Computational Storage Drives (CSDs) by overlaying the Data and Master nodes and releasing the added CPUs and servers in the system to be used for other tasks.
 
+
+# Because Elasticsearch uses Java, we need to ensure the Java Development Kit (JDK) is installed. 
+As NGD CSD operating system is a Linux aarch64 (64-bit ARM) systems:
+```
+ngd@node1:~$ sudo bash
+root@node1:~$ cd /usr/lib/jvm
+root@node1:/usr/lib/jvm$ wget https://download.oracle.com/java/17/latest/jdk-17_linux-aarch64_bin.tar.gz
+root@node1:/usr/lib/jvm$ tar zxvf jdk-17_linux-aarch64_bin.tar.gz
+root@node1:/usr/lib/jvm$ update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-17.0.1/bin/java 17
+root@node1:/usr/lib/jvm$ exit
+ngd@node1:~$ sudo update-alternatives --config java
+```
+In the above menu, select the biggest selection number, which refers to JDK-18.
+
 # Installing Elasticsearch on NGD CSD
 
 ```
@@ -20,20 +34,6 @@ ngd@node1:~$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticse
 ngd@node1:~$ shasum -a 512 -c elasticsearch-7.15.1-arm64.deb.sha512
 ngd@node1:~$ sudo dpkg -i elasticsearch-7.15.1-arm64.deb
 ```
-
-# Because Elasticsearch uses Java, we need to ensure the Java Development Kit (JDK) is installed. 
-As NGD CSD operating system is a Linux aarch64 (64-bit ARM) systems:
-```
-ngd@node1:~$ sudo bash
-root@node1:~$ cd /usr/lib/jvm
-root@node1:/usr/lib/jvm$ wget https://download.java.net/java/early_access/jdk18/21/GPL/openjdk-18-ea+21_linux-aarch64_bin.tar.gz
-root@node1:/usr/lib/jvm$ tar zxvf openjdk-18-ea+21_linux-aarch64_bin.tar.gz
-root@node1:/usr/lib/jvm$ ln -s /etc/alternatives/java /usr/bin/java
-root@node1:/usr/lib/jvm$ sudo update-alternatives --install /usr/bin/jave java /usr/lib/jvm/jdk-18/bin/java 18
-root@node1:/usr/lib/jvm$ exit
-ngd@node1:~$ sudo update-alternatives --config java
-```
-In the above menu, select the biggest selection number, which refers to JDK-18.
 
 # Running Elasticsearch with "systemd"
 To configure Elasticsearch to start automatically when the system boots up, run the following commands:
@@ -62,9 +62,8 @@ EnvironmentFile=-/etc/default/elasticsearch
 
 WorkingDirectory=/usr/share/elasticsearch
 
-User=ngd
-Group=ngd
-
+User=elasticsearch
+Group=elasticsearch
 
 ExecStart=/usr/share/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet
 #ExecStart=/usr/share/elasticsearch/bin/systemd-entrypoint
@@ -118,6 +117,9 @@ WantedBy=multi-user.target
 
 
 ```
+
+We only changed the value of TimeoutStartSec to 180. 
+
 ngd@node1:~$ sudo /bin/systemctl daemon-reload
 ngd@node1:~$ sudo /bin/systemctl enable elasticsearch.service
 ```
